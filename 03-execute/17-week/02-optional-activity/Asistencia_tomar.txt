@@ -1,0 +1,116 @@
+# Proyecto Asistencia SENA
+
+## Planteamiento General
+Se requiere un sistema que permita registrar asistencia de la manera más eficiente (sin tener en cuenta la integración con Sofia Plus).
+
+## Solución Propuesta
+Se propone una solución mediante una página web que agiliza el proceso de toma de asistencia y mejora el control de esta mediante los siguientes ítems:
+
+1. Autenticación de usuarios.
+2. Generación de un QR dinámico, cambiante cada 5 minutos, para la sesión de la clase previamente registrada.
+3. Restricción por red institucional del SENA.
+4. Un registro único por aprendiz para cada clase.
+5. Control de historial de asistencia.
+
+---
+
+## Funcionamiento General del Sistema
+
+### Creación de Sesión / Inicio de Sesión Instructor
+
+**El instructor:**
+1. Inicia sesión.
+2. Selecciona la ficha (previamente registrada).
+3. Inicia sesión de asistencia:
+   1. Selecciona la competencia (previamente registrada).
+   2. Ingresa un tiempo máximo para registrar la asistencia (en minutos).
+
+**El sistema:**
+1. Crea la sesión de asistencia.
+2. Genera un QR temporal (cambia cada 5 minutos).
+3. Habilita el registro durante el tiempo indicado por el instructor.
+4. Al cerrarse la ventana de tiempo, marca automáticamente como "inasistente" a quien no registró. El instructor puede corregir este estado manualmente después (por ejemplo, si el aprendiz no tenía celular disponible).
+
+### Registro de Asistencia Aprendiz
+
+**El aprendiz:**
+1. Se conecta al internet institucional.
+2. Escanea el QR proyectado por el instructor.
+3. Accede con sus credenciales (el login se realiza dentro de la página a la que dirige el QR).
+4. El sistema valida, en el momento del envío del formulario:
+   * Que la sesión esté activa.
+   * Que el QR escaneado corresponda al QR vigente en ese instante (si el QR se refrescó mientras el aprendiz completaba el login, el sistema rechaza el intento y solicita volver a escanear — ver sección "Riesgos").
+   * Que se encuentre en la red institucional (verifica IP pública del dispositivo).
+   * Que no haya registrado asistencia para esa formación anteriormente.
+
+### Registro de Aprendices
+
+**El instructor:**
+1. Copia los listados desde Sofia Plus.
+2. Los separa mediante enters.
+3. Los copia y los pega en el sistema.
+
+**El sistema:**
+* Los registra con su número de documento.
+* Si un documento ya existe (por ejemplo, registrado previamente en otra ficha), el sistema lo asocia a la ficha actual sin duplicar el registro del aprendiz.
+* Valida el formato de cada línea antes de guardar (documento numérico, sin espacios ni líneas vacías) e informa al instructor cuáles líneas no se pudieron procesar, si las hay.
+
+### Consulta de Historial de Asistencia
+
+**El instructor puede:**
+* Consultar la asistencia por ficha, por aprendiz o por rango de fechas.
+* Ver el total de asistentes e inasistentes por sesión.
+* Corregir manualmente un registro (por ejemplo, marcar presente a un aprendiz sin celular que reportó su asistencia de forma verbal).
+
+---
+
+## Seguridad
+
+### QR Dinámico
+Cada sesión genera un código QR diferente y cambiante (cada 5 minutos).
+Esto evita que:
+* Reutilicen los códigos antiguos.
+* Manipulen el proceso de validación.
+
+### Restricción por Red del SENA
+Solo los dispositivos conectados a la red del SENA pueden registrar la asistencia. La validación se realiza contra el rango de IP pública asignado a la sede correspondiente.
+Esto evita que:
+* Se realicen registros desde casa.
+* Se realicen registros desde otra ubicación.
+
+**Nota:** la opción para desactivar esta verificación (ver "Riesgos") solo puede ser activada por un usuario administrador, y cada vez que se use queda registrada en el historial (quién la desactivó, cuándo y en qué sesión).
+
+### Registro Único
+Cada aprendiz solo puede registrar una única asistencia por formación (sesión).
+Esto evita:
+* Problemas de duplicación de registros.
+* La manipulación de las estadísticas.
+
+### Doble factor frente a la suplantación
+El registro exige dos condiciones simultáneas: escanear el QR vigente **y** autenticarse con credenciales propias. Esto significa que compartir el QR no es suficiente para suplantar a un aprendiz ausente — quien reciba el QR también necesitaría las credenciales de esa persona, lo que reduce el riesgo más allá de la sola supervisión del instructor.
+
+---
+
+## Riesgos Encontrados
+Bajo todos estos riesgos se cuenta con la supervisión directa del instructor.
+
+### Compartir el Código QR con Otra Persona del Centro de Formación
+**Solución:**
+* Tiempo de expiración del código QR corto.
+* Requiere además las credenciales del aprendiz (ver "Doble factor frente a la suplantación").
+* Supervisión directa del instructor.
+
+### Caída de la Red del SENA
+**Solución:**
+* Método alternativo de registro manual.
+* Opción para desactivar la verificación de red, disponible únicamente para el usuario administrador y con registro de auditoría de su uso.
+
+### Posible Aprendiz sin Celular
+**Solución:**
+* Posibilidad de registrar la asistencia manualmente por parte del instructor.
+* Únicamente ingresando su número de documento.
+
+### QR Refrescado Durante un Registro
+**Solución:**
+* Alerta avisando sobre el QR refrescado.
+* Opción para volver a escanear.
