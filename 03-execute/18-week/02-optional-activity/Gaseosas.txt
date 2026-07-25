@@ -1,0 +1,16 @@
+1. Falta de stock de algunos productos
+
+Problema: A veces algunos productos se terminan y no hay para vender.
+
+Solución:
+
+Revisar el inventario con mayor insistencia para saber que productos están por acabarse, hacer los pedidos antes de que se termine el producto. Además, hay que tener un mínimo de unidades de cada producto para evitar quedarse sin stock y comprar más cantidad de los productos que más se venden.
+
+2. Los productos antiguos se vencen porque se venden primero los nuevos
+
+Problema: Se ponen a la venta los productos recién llegados y los más antiguos quedan guardados hasta vencer.
+
+Soluciones:
+
+Revisar las fechas de vencimiento de manera constante, vender primero los productos más antiguos, además de eso colocar los productos antiguos al frente y los nuevos detrás en los estantes. Si asi no se logran vender hacer promociones o descuentos para vender los productos que están cerca de vencer
+ y sobre todo explicar a los empleados la importancia de vender primero los productos más antiguos.
