@@ -1,0 +1,85 @@
+# Design Thinking
+
+Esto se hace para buscar una solución al problema planteado, centrándonos en
+las personas, para realizar un sistema que resuelva las necesidades reales
+de los usuarios.
+
+## 1. Empatizar
+
+El usuario principal es el **agente de la aerolínea**.
+
+**Necesidades**
+
+- Registrar pasajeros rápidamente
+- Encontrar información de un vuelo
+- Evitar errores en la asignación de asientos
+- Registrar pagos y equipaje de forma sencilla
+- Saber quién abordó
+- Identificar pasajeros no presentados (no-show)
+
+**Dolores (Pain Points)**
+
+- Duplicación de asientos
+- Errores manuales
+- Dificultad para encontrar pasajeros
+- Procesos lentos durante el embarque
+- Reportes manuales
+
+Además, al ser una aerolínea, se debe hacer un sistema rápido, confiable,
+sostenible e intuitivo para no retrasar los ciclos completos de un tiquete
+aéreo (definido en el archivo
+[Entendimiento.md](https://github.com/TheKelex/ADSO-3413974/blob/main/03-execute/20-week/02-optional-activity/Entendimiento.md)).
+
+## 2. Definir
+
+El problema central es que el agente necesita gestionar de manera rápida,
+segura y confiable todo el ciclo de un pasajero, evitando inconsistencias
+(como asignar el mismo asiento dos veces) y permitiendo identificar
+fácilmente los pasajeros que no abordaron el vuelo.
+
+## 3. Idear
+
+Posibles soluciones:
+
+- Flujo guiado de creación de reserva → tiquete → vuelo
+- Validaciones automáticas de reglas de negocio
+- Consulta rápida por documento del pasajero
+- Asignación de asientos mostrando solo los disponibles
+- Reporte automático de no-show
+- Mensajes de error claros
+- Confirmaciones antes de operaciones críticas
+
+(Las posibles soluciones planteadas no se desvían de lo propuesto en el
+[case-1.md](https://github.com/Juxnmp/ADSO-3413974/blob/main/03-execute/20-week/02-optional-activity/case-1.md)).
+
+## 4. Prototipar
+
+Pantallas mínimas del MVP:
+
+1. Login
+2. Pasajeros
+3. Reservas
+4. Tiquetes
+5. Vuelos
+6. Asignación de asientos
+7. Pagos
+8. Equipaje
+9. Embarque
+10. Reporte No-Show
+
+## 5. Testear
+
+Los escenarios clave para verificar son:
+
+- Inicio de sesión con credenciales válidas e inválidas
+- Creación de un pasajero
+- Creación de una reserva
+- Emisión de un tiquete
+- Creación de un vuelo con origen y destino diferentes
+- Intento de asignar el mismo asiento dos veces en el mismo vuelo (debe fallar)
+- Registro de equipaje y pagos
+- Registro de embarque
+- Consulta del reporte de no-show, verificando que solo aparezcan los
+  pasajeros con tiquete y sin registro de embarque
+- Verificación de que las operaciones críticas sean atómicas y mantengan la
+  integridad de los datos
