@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TiendApp — Hoja de Ruta</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #00C57A;
+    --verde-dark: #009B5E;
+    --amarillo: #FFD94A;
+    --naranja: #FF6B35;
+    --azul: #1A1F3C;
+    --azul-medio: #2D3561;
+    --crema: #F5F0E8;
+    --gris: #8A8FA8;
+    --blanco: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--azul);
+    color: var(--blanco);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(26,31,60,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--verde);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo span { color: var(--blanco); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--gris);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--verde); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(0,197,122,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,197,122,0.15);
+    border: 1px solid rgba(0,197,122,0.35);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--verde);
+    margin-bottom: 32px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--verde);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 12px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 .accent { color: var(--verde); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--gris);
+    font-weight: 300;
+    margin-bottom: 12px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-meta {
+    font-size: 0.85rem;
+    color: rgba(138,143,168,0.6);
+    margin-bottom: 56px;
+    animation: fadeUp 0.6s 0.25s ease both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 64px;
+    animation: fadeUp 0.6s 0.35s ease both;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--verde);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--gris);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--gris);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--verde), transparent);
+    animation: scrollDown 2s infinite;
+  }
+
+  @keyframes scrollDown {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--verde);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  .pillar-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 36px 28px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--verde);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .pillar-card:hover { 
+    border-color: rgba(0,197,122,0.3);
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .pillar-card:hover::after { transform: scaleX(1); }
+
+  .pillar-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .pillar-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--blanco);
+  }
+
+  .pillar-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pillar-items li {
+    font-size: 0.85rem;
+    color: var(--gris);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .pillar-items li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--verde);
+    font-size: 0.75rem;
+  }
+
+  /* PRICING */
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .plan-card {
+    border-radius: 20px;
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .plan-card.free {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .plan-card.tendero {
+    background: linear-gradient(135deg, rgba(0,197,122,0.18), rgba(0,197,122,0.06));
+    border: 1px solid rgba(0,197,122,0.4);
+  }
+
+  .plan-card.negocio {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .plan-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .tendero .plan-badge {
+    background: var(--verde);
+    color: var(--azul);
+  }
+
+  .free .plan-badge, .negocio .plan-badge {
+    background: rgba(255,255,255,0.1);
+    color: var(--gris);
+  }
+
+  .plan-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .plan-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--verde);
+    margin-bottom: 4px;
+  }
+
+  .plan-sub {
+    font-size: 0.75rem;
+    color: var(--gris);
+    margin-bottom: 28px;
+  }
+
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .plan-features li {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .plan-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--verde);
+    font-weight: 700;
+  }
+
+  /* PROBLEMS */
+  .problems {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .problem-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    transition: border-color 0.3s;
+  }
+
+  .problem-card:hover { border-color: rgba(255,107,53,0.3); }
+
+  .problem-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .problem-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--naranja);
+  }
+
+  .problem-quote {
+    font-style: italic;
+    color: var(--gris);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    border-left: 2px solid var(--naranja);
+    padding-left: 16px;
+  }
+
+  .problem-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .problem-points li {
+    font-size: 0.85rem;
+    color: var(--gris);
+    padding-left: 16px;
+    position: relative;
+  }
+  .problem-points li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: rgba(255,107,53,0.7);
+    font-size: 0.75rem;
+  }
+
+  .solution-block {
+    background: rgba(0,197,122,0.07);
+    border: 1px solid rgba(0,197,122,0.2);
+    border-radius: 14px;
+    padding: 24px;
+  }
+
+  .solution-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--verde);
+    margin-bottom: 14px;
+  }
+
+  .solution-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .solution-points li {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .solution-points li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--verde);
+    font-weight: 700;
+  }
+
+  /* STACK */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .stack-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px 20px;
+    transition: all 0.3s;
+  }
+
+  .stack-item:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(0,197,122,0.25);
+    transform: translateY(-3px);
+  }
+
+  .stack-layer {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--verde);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .stack-tech {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--blanco);
+  }
+
+  .stack-desc {
+    font-size: 0.78rem;
+    color: var(--gris);
+    line-height: 1.5;
+  }
+
+  /* MODULES */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .module-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s;
+  }
+
+  .module-card:hover {
+    border-color: rgba(0,197,122,0.3);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .module-icon { font-size: 2rem; margin-bottom: 16px; }
+  .module-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .module-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .module-list li {
+    font-size: 0.82rem;
+    color: var(--gris);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .module-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--verde);
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--verde), rgba(0,197,122,0.1));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--verde);
+    border: 3px solid var(--azul);
+    box-shadow: 0 0 0 3px rgba(0,197,122,0.25);
+  }
+
+  .timeline-week {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--verde);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .timeline-phase {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .timeline-hito {
+    font-size: 0.85rem;
+    color: var(--gris);
+  }
+
+  /* SPRINTS */
+  .sprints {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .sprint-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .sprint-card:hover {
+    border-color: rgba(0,197,122,0.25);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .sprint-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--verde);
+    margin-bottom: 8px;
+  }
+
+  .sprint-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .sprint-tasks { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .sprint-tasks li {
+    font-size: 0.82rem;
+    color: var(--gris);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .sprint-tasks li::before {
+    content: '□';
+    position: absolute;
+    left: 0;
+    color: rgba(0,197,122,0.5);
+    font-size: 0.8rem;
+  }
+
+  .sprint-goal {
+    background: rgba(0,197,122,0.1);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.9);
+    border-left: 3px solid var(--verde);
+  }
+
+  .sprint-goal strong { color: var(--verde); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+
+  /* PILOT */
+  .pilot-phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .pilot-phase {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 32px 24px;
+  }
+
+  .pilot-week {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--verde);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .pilot-phase-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .pilot-activities { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .pilot-activities li {
+    font-size: 0.8rem;
+    color: var(--gris);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .pilot-activities li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--verde);
+    font-size: 0.72rem;
+  }
+
+  .pilot-metrics { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .pilot-metrics li {
+    font-size: 0.78rem;
+    color: var(--verde);
+    padding-left: 16px;
+    position: relative;
+  }
+  .pilot-metrics li::before {
+    content: '📊';
+    position: absolute;
+    left: 0;
+    font-size: 0.65rem;
+    top: 2px;
+  }
+
+  /* CRITERIA */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .criterion {
+    background: rgba(0,197,122,0.07);
+    border: 1px solid rgba(0,197,122,0.2);
+    border-radius: 16px;
+    padding: 24px 18px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .criterion:hover {
+    background: rgba(0,197,122,0.12);
+    transform: translateY(-3px);
+  }
+
+  .criterion-check {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .criterion-text {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
+
+  /* FINAL */
+  .final-section {
+    text-align: center;
+    padding: 120px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0,197,122,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .final-quote {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.3;
+    max-width: 700px;
+    margin: 0 auto 32px;
+    color: var(--blanco);
+  }
+
+  .final-question {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--verde);
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 48px;
+    color: var(--gris);
+    font-size: 0.78rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* Security block */
+  .security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .sec-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .sec-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .sec-text { font-size: 0.8rem; color: var(--gris); line-height: 1.5; }
+
+  /* Offline layers */
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .layer {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+  }
+  .layer-num {
+    position: absolute;
+    top: -14px; left: 20px;
+    background: var(--verde);
+    color: var(--azul);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .layer-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 8px 0 12px;
+  }
+  .layer-desc { font-size: 0.8rem; color: var(--gris); line-height: 1.6; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    .pillars, .plans, .stack-grid, .criteria-grid { grid-template-columns: 1fr; }
+    .modules-grid, .sprints, .pilot-phases { grid-template-columns: 1fr; }
+    .layers, .security-grid { grid-template-columns: repeat(2,1fr); }
+    .problem-card { grid-template-columns: 1fr; }
+    .hero-stats { gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Tiend<span>App</span></div>
+  <ul class="nav-links">
+    <li><a href="#negocio">Negocio</a></li>
+    <li><a href="#tecnica">Técnica</a></li>
+    <li><a href="#mvp">MVP</a></li>
+    <li><a href="#piloto">Piloto</a></li>
+    <li><a href="#cronograma">Cronograma</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Documento Estratégico Confidencial</div>
+  <h1>Tiend<span class="accent">App</span></h1>
+  <p class="hero-sub">Hoja de Ruta del Proyecto · Aplicación de Inventario para Tiendas de Barrio</p>
+  <p class="hero-meta">Versión 1.0 · 2025–2026 · Colombia</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">73%</div>
+      <div class="stat-label">Tenderos sin app de inventario</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Semanas al piloto</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Módulos core del MVP</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">15%</div>
+      <div class="stat-label">Pérdida de inventario evitable</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- SECCIÓN 01: PLAN DE NEGOCIO -->
+<hr class="divider">
+<section id="negocio">
+  <div class="section-tag">01 — Plan de Negocio</div>
+  <h2 class="section-title">¿Por qué cambiar el<br>cuaderno por la app?</h2>
+
+  <div class="pillars">
+    <div class="pillar-card">
+      <div class="pillar-icon">🎯</div>
+      <div class="pillar-title">Argumento Económico</div>
+      <ul class="pillar-items">
+        <li>Detecta patrones de merma: cada producto vencido es dinero perdido</li>
+        <li>El tendero promedio pierde entre 8% y 15% por errores manuales</li>
+        <li>Alertas antes del desabastecimiento, evitando ventas perdidas</li>
+      </ul>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">⏱</div>
+      <div class="pillar-title">Argumento de Tiempo</div>
+      <ul class="pillar-items">
+        <li>Inventario manual: 2–4 horas semanales → Con la app: menos de 20 min</li>
+        <li>Pedidos a proveedores automáticos con un solo clic</li>
+        <li>Reporte diario listo al cerrar el local, sin calculadora</li>
+      </ul>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🛡</div>
+      <div class="pillar-title">Argumento de Control</div>
+      <ul class="pillar-items">
+        <li>Supervisa la tienda desde el celular aunque no estés presente</li>
+        <li>Historial de movimientos para detectar inconsistencias o hurtos</li>
+        <li>Datos listos para solicitar crédito ante bancos o programas de apoyo</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section-tag">Modelo de Ingresos</div>
+  <h3 class="section-title" style="font-size:clamp(1.4rem,3vw,2rem)">Freemium Progresivo</h3>
+
+  <div class="plans">
+    <div class="plan-card free">
+      <div class="plan-badge">Siempre gratis</div>
+      <div class="plan-name">🌱 Gratis</div>
+      <div class="plan-price">COP $0 / mes</div>
+      <div class="plan-sub">Para empezar sin riesgo</div>
+      <ul class="plan-features">
+        <li>Hasta 100 productos en inventario</li>
+        <li>Alertas de stock bajo</li>
+        <li>Reporte diario básico</li>
+        <li>1 usuario</li>
+      </ul>
+    </div>
+    <div class="plan-card tendero">
+      <div class="plan-badge">Más popular</div>
+      <div class="plan-name">⭐ Tendero</div>
+      <div class="plan-price">COP $19.900 / mes</div>
+      <div class="plan-sub">≈ USD $5 / mes</div>
+      <ul class="plan-features">
+        <li>Productos ilimitados</li>
+        <li>Escáner de código de barras</li>
+        <li>Reportes semanales y mensuales</li>
+        <li>Exportar a Excel/PDF</li>
+        <li>Hasta 3 usuarios</li>
+        <li>Soporte por WhatsApp</li>
+      </ul>
+    </div>
+    <div class="plan-card negocio">
+      <div class="plan-badge">Para crecer</div>
+      <div class="plan-name">🚀 Negocio</div>
+      <div class="plan-price">COP $49.900 / mes</div>
+      <div class="plan-sub">≈ USD $12 / mes</div>
+      <ul class="plan-features">
+        <li>Todo lo de Tendero</li>
+        <li>Múltiples bodegas / locales</li>
+        <li>Integración con proveedores</li>
+        <li>Usuarios ilimitados</li>
+        <li>API para contabilidad</li>
+        <li>Soporte telefónico prioritario</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMAS -->
+<hr class="divider">
+<section>
+  <div class="section-tag">Dolores del Mercado</div>
+  <h2 class="section-title">3 Problemas Críticos</h2>
+
+  <div class="problems">
+    <div class="problem-card">
+      <div>
+        <div class="problem-num">01</div>
+        <div class="problem-title">Inventario Fantasma</div>
+        <p class="problem-quote">"El producto estaba en el cuaderno, pero no estaba en la estantería."</p>
+        <ul class="problem-points">
+          <li>El 73% de los tenderos bogotanos lleva inventario solo en papel o de memoria (DANE, 2023)</li>
+          <li>Genera desabastecimiento frecuente de alta rotación: arroz, aceite, gaseosas</li>
+          <li>El cliente se va a la tienda de al lado y no vuelve</li>
+        </ul>
+      </div>
+      <div class="solution-block">
+        <div class="solution-title">✅ Solución TiendApp</div>
+        <ul class="solution-points">
+          <li>Inventario en tiempo real con actualización automática por cada venta registrada</li>
+          <li>Alerta automática cuando un producto baja del umbral mínimo definido por el tendero</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div>
+        <div class="problem-num">02</div>
+        <div class="problem-title">Ceguera Financiera Diaria</div>
+        <p class="problem-quote">"Vendí mucho hoy… pero no sé si gané o perdí."</p>
+        <ul class="problem-points">
+          <li>La mayoría no distingue entre ingresos brutos y ganancia neta</li>
+          <li>No conocen sus productos más rentables vs. los que ocupan espacio sin retorno</li>
+          <li>Sin datos históricos no pueden negociar mejores precios con proveedores</li>
+        </ul>
+      </div>
+      <div class="solution-block">
+        <div class="solution-title">✅ Solución TiendApp</div>
+        <ul class="solution-points">
+          <li>Reporte de cierre diario automático: ventas totales, productos estrella y margen estimado</li>
+          <li>Gráfico semanal de tendencias con lenguaje visual simple, sin tecnicismos financieros</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div>
+        <div class="problem-num">03</div>
+        <div class="problem-title">Dependencia Total del Dueño</div>
+        <p class="problem-quote">"Si yo no estoy, el negocio no funciona bien."</p>
+        <ul class="problem-points">
+          <li>El conocimiento del negocio vive únicamente en la cabeza del propietario</li>
+          <li>Cuando un empleado atiende, los errores en cobros y registros aumentan</li>
+          <li>No existe trazabilidad de lo que pasó cuando el dueño no estaba</li>
+        </ul>
+      </div>
+      <div class="solution-block">
+        <div class="solution-title">✅ Solución TiendApp</div>
+        <ul class="solution-points">
+          <li>Roles de usuario: dueño con acceso total, empleado con acceso limitado a ventas</li>
+          <li>Historial de movimientos consultable desde cualquier dispositivo en cualquier momento</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 02: FACTIBILIDAD TÉCNICA -->
+<hr class="divider">
+<section id="tecnica">
+  <div class="section-tag">02 — Factibilidad Técnica</div>
+  <h2 class="section-title">Stack Tecnológico</h2>
+
+  <div class="stack-grid">
+    <div class="stack-item">
+      <div class="stack-layer">📱 Frontend Móvil</div>
+      <div class="stack-tech">React Native + Expo</div>
+      <div class="stack-desc">Una sola base de código para Android e iOS. Actualizaciones OTA sin pasar por tiendas.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-layer">🌐 Frontend Web</div>
+      <div class="stack-tech">React.js + Tailwind</div>
+      <div class="stack-desc">Panel de administración ligero para acceso desde PC. Reutiliza componentes del móvil.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-layer">⚙️ Backend / BaaS</div>
+      <div class="stack-tech">Firebase</div>
+      <div class="stack-desc">Sin servidor que mantener. Escala automáticamente. Generous free tier para MVP.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-layer">💾 Offline / Sync</div>
+      <div class="stack-tech">WatermelonDB</div>
+      <div class="stack-desc">Base de datos local en el dispositivo. Sincroniza cuando hay internet. Crítico para zonas con señal débil.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-layer">📸 Escáner</div>
+      <div class="stack-tech">Vision Camera + ML Kit</div>
+      <div class="stack-desc">Escaneo de códigos de barras en tiempo real usando la cámara. Sin hardware adicional.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-layer">📊 Reportes</div>
+      <div class="stack-tech">Victory Native / Recharts</div>
+      <div class="stack-desc">Gráficos nativos ligeros optimizados para móvil con soporte offline.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-layer">🔔 Notificaciones</div>
+      <div class="stack-tech">Firebase Cloud Messaging</div>
+      <div class="stack-desc">Alertas push gratuitas para stock bajo, recordatorios de cierre y más.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-layer">🚀 Deploy / CI-CD</div>
+      <div class="stack-tech">GitHub Actions + EAS</div>
+      <div class="stack-desc">Pipeline automatizado. Una rama main = nueva versión lista en horas.</div>
+    </div>
+  </div>
+
+  <!-- MÓDULOS -->
+  <br><br>
+  <div class="section-tag">Módulos Core del MVP</div>
+  <h3 class="section-title" style="font-size:clamp(1.4rem,3vw,2rem)">4 Módulos Esenciales</h3>
+
+  <div class="modules-grid">
+    <div class="module-card">
+      <div class="module-icon">📦</div>
+      <div class="module-name">Módulo 1: Inventario</div>
+      <ul class="module-list">
+        <li>CRUD de productos con foto, nombre, precio costo y precio venta</li>
+        <li>Categorías personalizables (bebidas, aseo, granos, etc.)</li>
+        <li>Escáner de código de barras para agregar/buscar productos</li>
+        <li>Campo de cantidad actual y cantidad mínima de alerta</li>
+        <li>Búsqueda por nombre o código</li>
+      </ul>
+    </div>
+    <div class="module-card">
+      <div class="module-icon">🔔</div>
+      <div class="module-name">Módulo 2: Alertas Inteligentes</div>
+      <ul class="module-list">
+        <li>Notificación push cuando stock < mínimo definido</li>
+        <li>Resumen diario automático a la hora de cierre</li>
+        <li>Alerta de productos sin movimiento por X días</li>
+        <li>Recordatorio semanal de conteo de inventario</li>
+      </ul>
+    </div>
+    <div class="module-card">
+      <div class="module-icon">💰</div>
+      <div class="module-name">Módulo 3: Registro de Ventas</div>
+      <ul class="module-list">
+        <li>Registro rápido de venta por unidades (sin POS complejo)</li>
+        <li>Descuento automático del inventario al vender</li>
+        <li>Historial de ventas del día, semana y mes</li>
+        <li>Cálculo automático de margen por producto</li>
+        <li>Modo sin internet: guarda local y sincroniza después</li>
+      </ul>
+    </div>
+    <div class="module-card">
+      <div class="module-icon">📊</div>
+      <div class="module-name">Módulo 4: Reportes Visuales</div>
+      <ul class="module-list">
+        <li>Reporte de cierre diario con totales y top 5 productos</li>
+        <li>Gráfico de ventas semanal (barras simples)</li>
+        <li>Lista de productos con stock crítico</li>
+        <li>Exportar resumen a PDF o imagen para compartir por WhatsApp</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- OFFLINE / SEGURIDAD -->
+  <br><br>
+  <div class="section-tag">Seguridad y Resiliencia</div>
+  <h3 class="section-title" style="font-size:clamp(1.4rem,3vw,2rem)">Estrategia de 4 Capas Offline</h3>
+
+  <div class="layers">
+    <div class="layer">
+      <div class="layer-num">Capa 1</div>
+      <div class="layer-title">Almacenamiento Local</div>
+      <div class="layer-desc">WatermelonDB como base de datos local. La app funciona 100% offline: vender, agregar productos y ver reportes sin internet.</div>
+    </div>
+    <div class="layer">
+      <div class="layer-num">Capa 2</div>
+      <div class="layer-title">Sincronización Inteligente</div>
+      <div class="layer-desc">Cuando detecta WiFi o datos, sincroniza cambios con Firestore. Resolución de conflictos automática: la operación más reciente tiene prioridad.</div>
+    </div>
+    <div class="layer">
+      <div class="layer-num">Capa 3</div>
+      <div class="layer-title">Respaldo en la Nube</div>
+      <div class="layer-desc">Firestore replica automáticamente en múltiples centros de Google. Backup diario automatizado, retención de 30 días.</div>
+    </div>
+    <div class="layer">
+      <div class="layer-num">Capa 4</div>
+      <div class="layer-title">Exportación Manual</div>
+      <div class="layer-desc">El tendero puede exportar su inventario completo a Excel con un solo botón. "Guardar copia de mis datos" siempre visible.</div>
+    </div>
+  </div>
+
+  <div class="security-grid">
+    <div class="sec-item">
+      <div class="sec-icon">📱</div>
+      <div class="sec-text">Autenticación con número de celular (OTP via SMS) — sin necesidad de recordar contraseñas</div>
+    </div>
+    <div class="sec-item">
+      <div class="sec-icon">🔒</div>
+      <div class="sec-text">Datos cifrados en tránsito (TLS 1.3) y en reposo (AES-256 en Firebase)</div>
+    </div>
+    <div class="sec-item">
+      <div class="sec-icon">👤</div>
+      <div class="sec-text">Cada tendero solo puede ver sus propios datos. Aislamiento por UID de Firebase Auth</div>
+    </div>
+    <div class="sec-item">
+      <div class="sec-icon">🇨🇴</div>
+      <div class="sec-text">Cumplimiento con Ley 1581 de 2012 — Protección de Datos Personales de Colombia</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 03: MVP -->
+<hr class="divider">
+<section id="mvp">
+  <div class="section-tag">03 — Plan de Trabajo</div>
+  <h2 class="section-title">Desarrollo del MVP</h2>
+  <p style="color:var(--gris); margin-bottom: 48px; max-width: 600px;">4 semanas · Metodología Scrum · Sprints de 1 semana · Daily standup 15 min vía Slack/WhatsApp</p>
+
+  <div class="sprints">
+    <div class="sprint-card">
+      <div class="sprint-num">Sprint 1 · Semana 4</div>
+      <div class="sprint-title">🏗 Fundación y Autenticación</div>
+      <ul class="sprint-tasks">
+        <li>Configurar React Native + Expo + Firebase (Auth, Firestore, Functions)</li>
+        <li>Autenticación por número de celular (OTP SMS)</li>
+        <li>Navegación base: 4 tabs inferiores</li>
+        <li>Pantalla de Onboarding de 3 pasos con animaciones</li>
+        <li>WatermelonDB para persistencia local con esquema de BD</li>
+        <li>Pipeline CI/CD con GitHub Actions + Expo EAS</li>
+      </ul>
+      <div class="sprint-goal"><strong>🎯 Definición de Hecho</strong>El tendero puede registrarse con su celular y entrar a la app con código SMS.</div>
+    </div>
+    <div class="sprint-card">
+      <div class="sprint-num">Sprint 2 · Semana 5</div>
+      <div class="sprint-title">📦 Inventario + Escáner</div>
+      <ul class="sprint-tasks">
+        <li>Pantalla de listado de productos con búsqueda en tiempo real</li>
+        <li>Formulario para agregar/editar producto (foto, precios, cantidad)</li>
+        <li>React Native Vision Camera + ML Kit para código de barras</li>
+        <li>Sincronización bidireccional WatermelonDB ↔ Firestore</li>
+        <li>Indicador visual de estado de sincronización en header</li>
+        <li>Casos de prueba para flujo offline</li>
+      </ul>
+      <div class="sprint-goal"><strong>🎯 Definición de Hecho</strong>El tendero puede agregar un producto escaneando su código de barras, sin internet.</div>
+    </div>
+    <div class="sprint-card">
+      <div class="sprint-num">Sprint 3 · Semana 6</div>
+      <div class="sprint-title">💰 Ventas + Alertas + Reportes</div>
+      <ul class="sprint-tasks">
+        <li>Módulo de registro rápido de ventas: producto → cantidad → confirmar</li>
+        <li>Descuento automático de inventario al registrar venta</li>
+        <li>Firebase Cloud Function: trigger de alerta cuando stock < mínimo</li>
+        <li>Pantalla de alertas con lista en rojo/amarillo</li>
+        <li>Reporte de cierre diario: ventas totales, top 5 productos</li>
+        <li>Gráfico de barras para ventas de los últimos 7 días</li>
+      </ul>
+      <div class="sprint-goal"><strong>🎯 Definición de Hecho</strong>El tendero puede vender, recibir alerta de stock bajo y ver cuánto vendió hoy.</div>
+    </div>
+    <div class="sprint-card">
+      <div class="sprint-num">Sprint 4 · Semana 7</div>
+      <div class="sprint-title">✨ Pulido + Exportación</div>
+      <ul class="sprint-tasks">
+        <li>Exportar inventario a Excel y reporte diario a PDF/imagen</li>
+        <li>Módulo de roles: cuenta de empleado con permisos limitados</li>
+        <li>Pruebas de usabilidad con 5 usuarios reales</li>
+        <li>Corrección de bugs críticos y friction points</li>
+        <li>Hardening de seguridad: reglas de Firestore y Functions</li>
+        <li>Video tutorial de 2 minutos + guía impresa QR</li>
+      </ul>
+      <div class="sprint-goal"><strong>🎯 Definición de Hecho</strong>La app está lista para ser instalada en los teléfonos de los tenderos piloto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 03: PILOTO -->
+<hr class="divider">
+<section id="piloto">
+  <div class="section-tag">Fase 3 — Validación</div>
+  <h2 class="section-title">Piloto en Tienda Real</h2>
+  <p style="color:var(--gris); margin-bottom: 48px;">3 semanas · 3–5 tiendas en Bogotá · Meta: Validar retención, usabilidad y valor percibido</p>
+
+  <div class="pilot-phases">
+    <div class="pilot-phase">
+      <div class="pilot-week">Semana 8</div>
+      <div class="pilot-phase-title">🏪 Instalación y Arranque</div>
+      <ul class="pilot-activities">
+        <li>Seleccionar 3–5 tiendas piloto en Bogotá</li>
+        <li>Visita presencial de instalación y onboarding</li>
+        <li>Cargar inventario inicial junto al tendero</li>
+        <li>Check-in diario por WhatsApp los primeros 3 días</li>
+      </ul>
+      <ul class="pilot-metrics">
+        <li>100% de tenderos con inventario cargado al día 3</li>
+        <li>0 desinstalaciones en semana 1</li>
+      </ul>
+    </div>
+    <div class="pilot-phase">
+      <div class="pilot-week">Semana 9</div>
+      <div class="pilot-phase-title">👀 Observación Activa</div>
+      <ul class="pilot-activities">
+        <li>Monitorear uso diario vía Firebase Analytics</li>
+        <li>Entrevista de 15 min a mitad de semana</li>
+        <li>Registrar bugs y quejas en Notion</li>
+        <li>Hotfix deploy si hay bugs críticos</li>
+      </ul>
+      <ul class="pilot-metrics">
+        <li>> 4 sesiones de uso por semana por tienda</li>
+        <li>NPS > 6 en entrevista intermedia</li>
+        <li>< 3 bugs críticos sin resolver</li>
+      </ul>
+    </div>
+    <div class="pilot-phase">
+      <div class="pilot-week">Semana 10</div>
+      <div class="pilot-phase-title">📋 Evaluación y Decisión</div>
+      <ul class="pilot-activities">
+        <li>Entrevista de cierre con cada tendero piloto</li>
+        <li>Encuesta NPS + valoración de cada módulo</li>
+        <li>Análisis de datos de uso en Firebase</li>
+        <li>Informe final: ir / no ir a lanzamiento público</li>
+      </ul>
+      <ul class="pilot-metrics">
+        <li>NPS > 7 en encuesta de cierre</li>
+        <li>> 60% de tenderos declara que pagaría</li>
+        <li>Retención: > 3 de 5 tiendas activas al día 21</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Criterios -->
+  <div class="section-tag">Criterios para el Lanzamiento Público</div>
+  <h3 class="section-title" style="font-size:clamp(1.4rem,3vw,2rem)">5 Checkpoints de Go/No-Go</h3>
+
+  <div class="criteria-grid">
+    <div class="criterion">
+      <div class="criterion-check">✅</div>
+      <div class="criterion-text">Retención a 21 días > 60% en tiendas piloto</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-check">✅</div>
+      <div class="criterion-text">NPS promedio ≥ 7/10</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-check">✅</div>
+      <div class="criterion-text">Al menos 1 tendero dispuesto a pagar (willingness to pay)</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-check">✅</div>
+      <div class="criterion-text">Tiempo de aprendizaje < 30 min desde instalación hasta primera venta</div>
+    </div>
+    <div class="criterion">
+      <div class="criterion-check">✅</div>
+      <div class="criterion-text">Cero pérdidas de datos documentadas durante el piloto</div>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<hr class="divider">
+<section id="cronograma">
+  <div class="section-tag">Cronograma Resumen</div>
+  <h2 class="section-title">10 Semanas al Lanzamiento</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-week">S1–S3</div>
+      <div class="timeline-phase">🔍 Fase 1: Descubrimiento y Diseño UX</div>
+      <div class="timeline-hito">Hito: PRD aprobado + Design System listo</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-week">S4</div>
+      <div class="timeline-phase">💻 Sprint 1: Fundación técnica</div>
+      <div class="timeline-hito">Hito: Auth funcional con OTP SMS</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-week">S5</div>
+      <div class="timeline-phase">💻 Sprint 2: Inventario + Escáner</div>
+      <div class="timeline-hito">Hito: Agregar producto offline con cámara</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-week">S6</div>
+      <div class="timeline-phase">💻 Sprint 3: Ventas + Alertas + Reportes</div>
+      <div class="timeline-hito">Hito: Flujo completo de venta funcionando</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-week">S7</div>
+      <div class="timeline-phase">💻 Sprint 4: Pulido + Exportación</div>
+      <div class="timeline-hito">Hito: MVP listo para instalar en campo</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-week">S8</div>
+      <div class="timeline-phase">🏪 Piloto Semana 1: Instalación</div>
+      <div class="timeline-hito">Hito: 3–5 tiendas onboarded</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-week">S9</div>
+      <div class="timeline-phase">🏪 Piloto Semana 2: Observación activa</div>
+      <div class="timeline-hito">Hito: Hotfixes + datos de retención</div>
+    </div>
+    <div class="timeline-item" style="margin-bottom:0">
+      <div class="timeline-dot" style="background:var(--amarillo); box-shadow: 0 0 0 3px rgba(255,217,74,0.3);"></div>
+      <div class="timeline-week" style="color:var(--amarillo)">S10</div>
+      <div class="timeline-phase">🏪 Piloto Semana 3: Evaluación final</div>
+      <div class="timeline-hito" style="color:var(--amarillo)">Decisión: ¿Lanzamos? ✅ / ❌</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<hr class="divider">
+<div class="final-section">
+  <p style="font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; color:var(--verde); margin-bottom:24px;">Una nota final del equipo</p>
+  <p class="final-quote">El éxito de TiendApp no se mide en líneas de código, sino en el tiempo que le devolvemos a doña Carmen para que pueda almorzar con su familia sin preocuparse por el inventario.</p>
+  <p class="final-question">"¿Esto le facilita la vida al tendero o solo nos hace sentir bien a nosotros?"</p>
+</div>
+
+<div class="footer">
+  TiendApp · Hoja de Ruta v1.0 · 2025–2026 · Colombia · Documento Estratégico Confidencial
+</div>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.pillar-card, .plan-card, .problem-card, .stack-item, .module-card, .sprint-card, .pilot-phase, .criterion, .layer, .sec-item, .timeline-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
